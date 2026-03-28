@@ -19,10 +19,8 @@ Discord API CLI ツールを可能な限り実環境（Discordの実サーバー
 - 各テストケースでは `os/exec` パッケージを用いて、ビルドしたバイナリに実引数を渡して実行し、終了コード (Exit Code) や標準出力の内容を検証いたします。
 - `DISCORD_E2E_TOKEN` などの必須環境変数が未設定の場合は、`t.Skip("E2Eテスト用の環境変数が未設定のためスキップいたしますわ")` を呼び出し、通常のCIパイプラインやローカルテストが失敗しないように保護いたしますわ。
 
-### 3. 推奨するテストシナリオ
-1. **認証と基本情報の取得**:
-   `./test-discord-cli me` および `./test-discord-cli me-guilds` を実行し、APIとの認証が通り情報が取得できるかを確認いたします。
-2. **メッセージ送信の検証**:
-   `./test-discord-cli message <CHANNEL_ID> "E2Eテストのメッセージですわ"` を実行し、エラーなく終了するかを確認いたします。
-3. **チャンネル更新の検証**:
-   `./test-discord-cli modify-channel <CHANNEL_ID> "テスト用チャンネル"` を実行し、チャンネル名の変更処理が正常にAPIに受理されるかを確認いたします。
+3. **メッセージ取得の検証**:
+   `./test-discord-cli get-message <CHANNEL_ID> <MESSAGE_ID>` を実行し、指定したメッセージの内容が正しく取得できるかを確認いたします。
+4. **メッセージ削除の検証**:
+   `./test-discord-cli message <CHANNEL_ID> "削除テスト"` を実行してメッセージを投稿し、その直後に `./test-discord-cli delete-message <CHANNEL_ID> <MESSAGE_ID>` を実行して正常に削除されるかを確認いたします。
+

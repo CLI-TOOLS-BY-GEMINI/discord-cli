@@ -60,11 +60,15 @@ go test -v ./pkg/discord -run TestE2E
    ```bash
    DISCORD_TOKEN=$DISCORD_E2E_TOKEN ./discord-cli me
    ```
-3. **メッセージ送信**:
+4. **メッセージ取得**:
    ```bash
-   DISCORD_TOKEN=$DISCORD_E2E_TOKEN ./discord-cli message $DISCORD_E2E_CHANNEL_ID "手動テストですわ"
+   DISCORD_TOKEN=$DISCORD_E2E_TOKEN ./discord-cli get-message $DISCORD_E2E_CHANNEL_ID <MESSAGE_ID>
    ```
-4. **チャンネル名の変更**:
+5. **メッセージ削除 (投稿から削除までのフロー)**:
    ```bash
-   DISCORD_TOKEN=$DISCORD_E2E_TOKEN ./discord-cli modify-channel $DISCORD_E2E_CHANNEL_ID "麗しの社交場"
+   # 1. 削除用のメッセージを投稿（出力されるIDを控えます）
+   DISCORD_TOKEN=$DISCORD_E2E_TOKEN ./discord-cli message $DISCORD_E2E_CHANNEL_ID "このメッセージは間もなく消去されますわ"
+   
+   # 2. 投稿したメッセージを削除
+   DISCORD_TOKEN=$DISCORD_E2E_TOKEN ./discord-cli delete-message $DISCORD_E2E_CHANNEL_ID <MESSAGE_ID>
    ```
